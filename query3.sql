@@ -12,3 +12,10 @@ INNER JOIN roles r ON a.id = r.actor_id
 GROUP BY a.id, a.first_name, a.last_name, a.gender
 HAVING COUNT(r.movie_id) > 5
 ORDER BY total_roles DESC;
+
+-- Mendapatkan directors paling produktif sepanjang masa
+SELECT d.id, d.first_name, d.last_name, COUNT(md.movie_id) AS total_movies 
+FROM directors AS d 
+INNER JOIN movies_directors AS md ON d.id = md.director_id 
+GROUP BY d.id, d.first_name, d.last_name 
+ORDER BY total_movies DESC ;

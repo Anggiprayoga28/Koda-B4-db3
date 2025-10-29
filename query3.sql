@@ -19,3 +19,16 @@ FROM directors AS d
 INNER JOIN movies_directors AS md ON d.id = md.director_id 
 GROUP BY d.id, d.first_name, d.last_name 
 ORDER BY total_movies DESC ;
+
+-- Mendapatkan tahun tersibuk sepanjang masa
+SELECT m.year, COUNT(m.id) AS total_movies
+FROM movies AS m
+GROUP BY m.year
+ORDER BY total_movies DESC;
+
+-- Mendapatkan movies dengan genres yang di buatkan menjadi 1 column 
+SELECT m.id, m.name, m.year, m.rankscore, STRING_AGG(mg.genre, ', ') AS genres
+FROM movies AS m
+LEFT JOIN movies_genres AS mg ON m.id = mg.movie_id
+GROUP BY m.id, m.name, m.year, m.rankscore
+ORDER BY m.year DESC;

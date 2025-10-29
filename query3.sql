@@ -18,17 +18,19 @@ SELECT d.id, d.first_name, d.last_name, COUNT(md.movie_id) AS total_movies
 FROM directors AS d 
 INNER JOIN movies_directors AS md ON d.id = md.director_id 
 GROUP BY d.id, d.first_name, d.last_name 
-ORDER BY total_movies DESC ;
+ORDER BY total_movies DESC
+LIMIT 1 ;
 
 -- Mendapatkan tahun tersibuk sepanjang masa
 SELECT m.year, COUNT(m.id) AS total_movies
 FROM movies AS m
 GROUP BY m.year
-ORDER BY total_movies DESC;
+ORDER BY total_movies DESC
+LIMIT 1;
 
 -- Mendapatkan movies dengan genres yang di buatkan menjadi 1 column 
-SELECT m.id, m.name, m.year, m.rankscore, STRING_AGG(mg.genre, ', ') AS genres
+SELECT m.id, m.name, STRING_AGG(mg.genre, ', ') AS genres
 FROM movies AS m
 LEFT JOIN movies_genres AS mg ON m.id = mg.movie_id
-GROUP BY m.id, m.name, m.year, m.rankscore
+GROUP BY m.id, m.name
 ORDER BY m.year DESC;
